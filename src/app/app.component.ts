@@ -6,8 +6,8 @@ import { HeroService } from './hero.service';
   template: `
      <h1>{{title}}</h1>
      <nav>
-       <a routerLink="/dashboard">Dashboard</a>
-       <a routerLink="/heroes">Heroes</a>
+       <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+       <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
      </nav>
      <!--
        - <router-outlet> es una directiva que le indica al rutero donde visualizar el componente
@@ -15,6 +15,7 @@ import { HeroService } from './hero.service';
      -->
      <router-outlet></router-outlet>
    `,
+   styleUrls: [ './app.component.css' ],
    // Para que los hijos del componente usen la inyeccion del servicio
    providers: [HeroService]
 })
