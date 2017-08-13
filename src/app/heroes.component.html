@@ -1,0 +1,23 @@
+<h2>My Heroes</h2>
+<ul class="heroes">
+  <!--
+    - *ngFor es una directiva para iterar.
+    - let se usa para declarar variable hero.
+    - heroes es una propiedad definida en la clase.
+    - selected es un stilo CSS del componente.
+    - selectedHero es una propiedad definida en la clase.
+    - onSelect es un metodo definido en la clase.
+    - (click) es un evento del componente.
+  -->
+  <li *ngFor="let hero of heroes"
+    [class.selected]="hero === selectedHero"
+    (click)="onSelect(hero)">
+    <span class="badge">{{hero.id}}</span> {{hero.name}}
+  </li>
+</ul>
+<div *ngIf="selectedHero">
+  <h2>
+    {{selectedHero.name | uppercase}} is my hero
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>

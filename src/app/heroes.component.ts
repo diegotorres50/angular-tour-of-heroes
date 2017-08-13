@@ -7,6 +7,9 @@
  */
 import { Component, OnInit } from '@angular/core';
 
+// Para usar el metodo navigate() del rutero
+import { Router } from '@angular/router';
+
 // Hero es una clase que define la estructura de datos de un hero.
 import { Hero } from './hero';
 
@@ -26,81 +29,8 @@ import { HeroService } from './hero.service';
   // Para identificar el componente del lado del html.
   selector: 'my-heroes',
   // El html o vista del componente.
-  template: `
-    <h2>My Heroes</h2>
-    <ul class="heroes">
-      <!--
-        - *ngFor es una directiva para iterar.
-        - let se usa para declarar variable hero.
-        - heroes es una propiedad definida en la clase.
-        - selected es un stilo CSS del componente.
-        - selectedHero es una propiedad definida en la clase.
-        - onSelect es un metodo definido en la clase.
-        - (click) es un evento del componente.
-      -->
-      <li *ngFor="let hero of heroes"
-        [class.selected]="hero === selectedHero"
-        (click)="onSelect(hero)">
-        <span class="badge">{{hero.id}}</span> {{hero.name}}
-      </li>
-    </ul>
-    <!--
-      - <hero-detail> es un selector de otro componente, en teoria no requiere ser importado con 'import {}'.
-      - [hero] es una propiedad de entrada '@input' del componente hijo <hero-detail>.
-      - selectedHero es un valor de la propiedad del componente padre que se pasa al hijo.
-    -->
-    <hero-detail [hero]="selectedHero"></hero-detail>
-  `,
-  // Los estilos CSS del componente solo afectaran al componente.
-  styles: [`
-    .selected {
-      background-color: #CFD8DC !important;
-      color: white;
-    }
-    .heroes {
-      margin: 0 0 2em 0;
-      list-style-type: none;
-      padding: 0;
-      width: 15em;
-    }
-    .heroes li {
-      cursor: pointer;
-      position: relative;
-      left: 0;
-      background-color: #EEE;
-      margin: .5em;
-      padding: .3em 0;
-      height: 1.6em;
-      border-radius: 4px;
-    }
-    .heroes li.selected:hover {
-      background-color: #BBD8DC !important;
-      color: white;
-    }
-    .heroes li:hover {
-      color: #607D8B;
-      background-color: #DDD;
-      left: .1em;
-    }
-    .heroes .text {
-      position: relative;
-      top: -3px;
-    }
-    .heroes .badge {
-      display: inline-block;
-      font-size: small;
-      color: white;
-      padding: 0.8em 0.7em 0 0.7em;
-      background-color: #607D8B;
-      line-height: 1em;
-      position: relative;
-      left: -1px;
-      top: -4px;
-      height: 1.8em;
-      margin-right: .8em;
-      border-radius: 4px 0 0 4px;
-    }
-  `]
+  templateUrl: './heroes.component.html',
+  styleUrls: [ './heroes.component.css' ]
 })
 
 /**
@@ -129,7 +59,11 @@ export class HeroesComponent implements OnInit {
 
    El proposito del construvtor es solo inicializar el servicio y asociar propiedades del componente.
    */
-  constructor(private heroService: HeroService) { }
+    constructor(
+    // Para el rutero.
+    private router: Router,
+    // Para el data service
+    private heroService: HeroService) { }
 
   // Definimos un metodo en el componente que trae los datos del servicio, es decir la lista de heroes.
   getHeroes(): void {
@@ -163,5 +97,15 @@ export class HeroesComponent implements OnInit {
   onSelect(hero: Hero): void {
     // Guarda el valor de hero seleccionado en la propiedad local 'selectedHero'
     this.selectedHero = hero;
+  }
+
+  /*
+   The HeroesComponent navigates to the HeroesDetailComponent in response to a button click. The button's click event is bound to a gotoDetail() method that navigates imperatively by telling the router where to go.
+   */
+  gotoDetail(): void {
+    /*
+     Note that you're passing a two-element link parameters array—a path and the route parameter—to the router navigate() method, just as you did in the [routerLink] binding back in the DashboardComponent.
+     */
+    this.router.navigate(['/detail', this.selectedHero.id]);
   }
 }
