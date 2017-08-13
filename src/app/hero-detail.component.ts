@@ -1,3 +1,10 @@
+/**
+ Siempre que defina un componente, importamos 'Component'.
+
+ Para importar mas de una clase del core, usamos separación por ',' comas.
+
+ Input se usa para indicar que el componente recibira valores desde un componente padre.
+ */
 import { Component, Input } from '@angular/core';
 import { Hero } from './hero';
 
@@ -17,5 +24,6 @@ import { Hero } from './hero';
   `
 })
 export class HeroDetailComponent {
+  // hero es una propiedad que sera seteada por valores que el componente padre le pase.
   @Input() hero: Hero;
 }

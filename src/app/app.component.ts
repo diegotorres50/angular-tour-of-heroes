@@ -11,6 +11,7 @@ import { HeroService } from './hero.service';
      </nav>
      <router-outlet></router-outlet>
    `,
+   // Para que los hijos del componente usen la inyeccion del servicio
    providers: [HeroService]
 })
 export class AppComponent {
