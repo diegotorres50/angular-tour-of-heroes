@@ -17,4 +17,10 @@ export class HeroService {
       });
     }
 
+    // getHero() method that filters the heroes list from getHeroes() by id.
+    // Este metodo es clave para las rutas dinamicas '/detail/:id'.
+    getHero(id: number): Promise<Hero> {
+      return this.getHeroes()
+                 .then(heroes => heroes.find(hero => hero.id === id));
+    }
 }
