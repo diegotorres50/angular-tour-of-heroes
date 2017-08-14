@@ -108,4 +108,26 @@ export class HeroesComponent implements OnInit {
      */
     this.router.navigate(['/detail', this.selectedHero.id]);
   }
+
+  // In response to a click event, call the component's click handler and then clear the input field so that it's ready for another name.
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.create(name)
+      .then(hero => {
+        this.heroes.push(hero);
+        this.selectedHero = null;
+      });
+  }
+
+  // In addition to calling the component's delete() method, the delete button's click handler code stops the propagation of the click event—you don't want the <li> click handler to be triggered because doing so would select the hero that the user will delete.
+  // Of course you delegate hero deletion to the hero service, but the component is still responsible for updating the display: it removes the deleted hero from the array and resets the selected hero, if necessary.
+  delete(hero: Hero): void {
+    this.heroService
+        .delete(hero.id)
+        .then(() => {
+          this.heroes = this.heroes.filter(h => h !== hero);
+          if (this.selectedHero === hero) { this.selectedHero = null; }
+        });
+  }
 }
