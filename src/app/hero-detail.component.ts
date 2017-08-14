@@ -16,6 +16,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location }                 from '@angular/common';
 
+import { Hero }         from './hero';
 import { HeroService } from './hero.service';
 
 // Import the switchMap operator to use later with the route parameters Observable.
@@ -31,6 +32,7 @@ import 'rxjs/add/operator/switchMap';
 // Tell the class to implement the OnInit interface.
 // El OnInit method se ejecurara cada vez que se cree este componente.
 export class HeroDetailComponent implements OnInit {
+  hero: Hero;
   // Inject the ActivatedRoute, HeroService, and Location services into the constructor, saving their values in private fields:
   constructor(
     // Esto es para consumir el data service inyectado en el constructor
